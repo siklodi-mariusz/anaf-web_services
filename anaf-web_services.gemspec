@@ -4,7 +4,7 @@ require_relative 'lib/anaf/web_services/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'anaf-web_services'
-  spec.version = Anaf::WebServices::VERSION
+  spec.version = ANAF::WebServices::VERSION
   spec.authors = ['Mariusz Siklodi']
   spec.summary = 'Ruby Client library for ANAF API'
   spec.description = ''
