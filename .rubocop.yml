@@ -10,3 +10,12 @@ Style/StringLiteralsInInterpolation:
 
 Layout/LineLength:
   Max: 120
+
+# ====================================================
+# Metrics Cops
+# ====================================================
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+    - Guardfile
