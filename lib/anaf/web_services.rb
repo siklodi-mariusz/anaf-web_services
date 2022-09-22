@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'web_services/version'
+require_relative 'web_services/vat_registry'
 
 module ANAF
   module WebServices
-    class Error < StandardError; end
-    # Your code goes here...
+    class InvalidRequest < StandardError; end
   end
 end

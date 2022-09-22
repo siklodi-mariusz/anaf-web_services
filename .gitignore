@@ -11,3 +11,5 @@
 .rspec_status
 .ruby-gemset
 .ruby-version
+
+.byebug_history
