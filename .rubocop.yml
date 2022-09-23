@@ -8,8 +8,16 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
 
+
+# ====================================================
+# Layout Cops
+# ====================================================
 Layout/LineLength:
   Max: 120
+
+Layout/IndentationConsistency:
+  Enabled: true
+  EnforcedStyle: indented_internal_methods
 
 # ====================================================
 # Metrics Cops

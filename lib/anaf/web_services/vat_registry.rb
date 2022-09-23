@@ -33,15 +33,15 @@ module ANAF
 
       private
 
-      def conn
-        @conn ||= Faraday.new(BASE_URL, request: { timeout: 5 }) do |f|
-          f.request :json
+        def conn
+          @conn ||= Faraday.new(BASE_URL, request: { timeout: 5 }) do |f|
+            f.request :json
+          end
         end
-      end
 
-      def date
-        @date ||= Date.today.to_s
-      end
+        def date
+          @date ||= Date.today.to_s
+        end
     end
   end
 end

@@ -6,10 +6,6 @@ RSpec.describe ANAF::WebServices::VatRegistry do
 
     subject { described_class.new(ids).call }
 
-    before do
-      stub_request(:post, api_endpoint)
-    end
-
     context 'when request body is empty' do
       let(:ids) { [] }
 
@@ -23,17 +19,7 @@ RSpec.describe ANAF::WebServices::VatRegistry do
       let(:ids) { [1] }
 
       before do
-        stub_request(:post, api_endpoint).to_return(
-          body: {
-            cod: 200,
-            message: 'SUCCESS',
-            found: [
-              {
-                cui: 1
-              }
-            ]
-          }.to_json
-        )
+        stub_successful_vat_registry_request(1)
       end
 
       it 'calls API' do
@@ -50,16 +36,11 @@ RSpec.describe ANAF::WebServices::VatRegistry do
       let(:ids) { [1] }
 
       before do
-        stub_request(:post, api_endpoint).to_return(
-          body: {
-            cod: 501,
-            message: 'Error message'
-          }.to_json
-        )
+        stub_failed_vat_registry_request(1)
       end
 
       it 'raises error with message' do
-        expect { subject }.to raise_error(ANAF::WebServices::InvalidRequest, 'Error message')
+        expect { subject }.to raise_error(ANAF::WebServices::InvalidRequest, 'ERROR')
       end
     end
 
