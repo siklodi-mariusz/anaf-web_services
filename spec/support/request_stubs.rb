@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 module RequestStubs
-  def stub_successful_vat_registry_request(id)
+  def stub_successful_vat_registry_request(ids)
     stub_request(:post, vat_registry_api_endpoint).with(
-      body: [{ cui: id, data: Date.today.to_s }].to_json,
+      body: ids.map { |id| { cui: id, data: Date.today.to_s } }.to_json,
       headers: { 'Content-Type' => 'application/json' }
     ).to_return(
       status: 200,
-      body: response_body(code: 200, message: 'SUCCESS', found: [{ cui: id }]).to_json
+      body: response_body(code: 200, message: 'SUCCESS', found: ids).to_json
     )
   end
 
-  def stub_failed_vat_registry_request(id)
+  def stub_failed_vat_registry_request(ids)
     stub_request(:post, vat_registry_api_endpoint).with(
-      body: [{ cui: id, data: Date.today.to_s }].to_json,
+      body: ids.map { |id| { cui: id, data: Date.today.to_s } }.to_json,
       headers: { 'Content-Type' => 'application/json' }
     ).to_return(
       status: 200,
@@ -31,7 +31,7 @@ module RequestStubs
       {
         cod: code,
         message: message,
-        found: found,
+        found: found.map { |id| { cui: id } },
         not_found: []
       }
     end

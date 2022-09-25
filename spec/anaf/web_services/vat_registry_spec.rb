@@ -19,7 +19,7 @@ RSpec.describe ANAF::WebServices::VatRegistry do
       let(:ids) { [1] }
 
       before do
-        stub_successful_vat_registry_request(1)
+        stub_successful_vat_registry_request([1])
       end
 
       it 'calls API' do
@@ -36,7 +36,7 @@ RSpec.describe ANAF::WebServices::VatRegistry do
       let(:ids) { [1] }
 
       before do
-        stub_failed_vat_registry_request(1)
+        stub_failed_vat_registry_request([1])
       end
 
       it 'raises error with message' do

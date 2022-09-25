@@ -10,5 +10,11 @@ module ANAF # :nodoc:
     rescue WebServices::InvalidRequest
       nil
     end
+
+    def get_companies(cuis)
+      WebServices::VatRegistry.new(cuis).call.first
+    rescue WebServices::InvalidRequest
+      []
+    end
   end
 end
