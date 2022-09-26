@@ -1,22 +1,61 @@
-# ANAF WebServices API
+# ANAF WebServices API [UNOFFICIAL]
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/anaf/web_services`. To experiment with that code, run `bin/console` for an interactive prompt.
+![Build](https://github.com/siklodi-mariusz/anaf-web_services/actions/workflows/main.yml/badge.svg)
 
-TODO: Delete this and the text above, and describe your gem
+Unofficial Ruby client library for some of the Web API Services provided by Romanian ANAF.
+
+ANAF is an acronym for *"Agenția Națională de Administrare Fiscală"* which translates to *National Agency of Fiscal Administration*.
+
+You get the idea, ANAF is the Romanian governmental institution that makes sure everybody is paying their taxes.
 
 ## Installation
 
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'anaf-web_services'
+```
+
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add anaf-web_services
+```bash
+bundle add anaf-web_services
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install anaf-web_services
+```bash
+gem install anaf-web_services
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Some terminology clarifications.
+
+ANAF identifies companies by a number called **CUI**, again an acronym for *"Cod Unic de Inregistrare/Identificare"* = "Unique identification code"
+
+The APIs operate based on this **CUI** number.
+
+### VAT Registry
+
+#### Get a company by CUI
+
+```ruby
+ANAF.get_company(123456)
+=>
+{"cui"=>123456, "data"=>"2022-09-26", "denumire"=>"Example 123456", ... }
+```
+
+#### Get multiple companies
+
+```ruby
+ANAF.get_companies([123456, 654321])
+=>
+[
+    {"cui"=>123456, "data"=>"2022-09-26", "denumire"=>"Example 123456", ... },
+    {"cui"=>654321, "data"=>"2022-09-26", "denumire"=>"Example 654321", ... }
+]
+```
 
 ## Development
 
