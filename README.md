@@ -36,7 +36,11 @@ ANAF identifies companies by a number called **CUI**, again an acronym for *"Cod
 
 The APIs operate based on this **CUI** number.
 
-### VAT Registry
+### VAT Registry API
+
+This API returns some information about the companies but is mainly focused on the VAT status of the company, if it's VAT liable or not.
+
+For more details about the underlying API see [here](https://static.anaf.ro/static/10/Anaf/Informatii_R/doc_WS_V6.txt) the official documentation but it's only in Romanian.
 
 #### Get a company by CUI
 
