@@ -23,6 +23,8 @@ module ANAF
         return if body['deni'].nil? || body['deni'].strip.empty?
 
         body
+      rescue Faraday::TimeoutError, Faraday::ConnectionFailed, JSON::ParserError
+        nil
       end
 
       private

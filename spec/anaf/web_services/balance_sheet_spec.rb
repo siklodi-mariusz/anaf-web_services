@@ -42,5 +42,32 @@ RSpec.describe ANAF::WebServices::BalanceSheet do
         expect(a_request(:get, api_endpoint).with(query: { cui: cui, an: year })).to have_been_made
       end
     end
+
+    context 'when request times out' do
+      before do
+        stub_request(:get, api_endpoint).with(query: { cui: cui, an: year }).to_raise(Faraday::TimeoutError)
+      end
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when request connection fails' do
+      before do
+        stub_request(:get, api_endpoint).with(query: { cui: cui, an: year }).to_raise(Faraday::ConnectionFailed)
+      end
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when response body is not JSON' do
+      before do
+        stub_request(:get, api_endpoint).with(query: { cui: cui, an: year }).to_return(
+          status: 200,
+          body: '<html>Test</html>'
+        )
+      end
+
+      it { is_expected.to be_nil }
+    end
   end
 end

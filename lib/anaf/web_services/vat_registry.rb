@@ -25,6 +25,8 @@ module ANAF
         raise InvalidRequest, body['message']
       rescue JSON::ParserError
         raise InvalidRequest, response.body
+      rescue Faraday::TimeoutError, Faraday::ConnectionFailed
+        nil
       end
 
       def request_body

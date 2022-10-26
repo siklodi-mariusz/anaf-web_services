@@ -2,6 +2,7 @@
 
 RSpec.describe ANAF::WebServices::VatRegistry do
   describe '#call' do
+    let(:ids) { [1] }
     let(:api_endpoint) { "#{described_class::BASE_URL}#{described_class::PATH}" }
 
     subject { described_class.new(ids).call }
@@ -16,8 +17,6 @@ RSpec.describe ANAF::WebServices::VatRegistry do
     end
 
     context 'when request body is not empty' do
-      let(:ids) { [1] }
-
       before do
         stub_successful_vat_registry_request([1])
       end
@@ -33,10 +32,8 @@ RSpec.describe ANAF::WebServices::VatRegistry do
     end
 
     context 'when response is unsuccessful with error message' do
-      let(:ids) { [1] }
-
       before do
-        stub_failed_vat_registry_request([1])
+        stub_failed_vat_registry_request(ids)
       end
 
       it 'raises error with message' do
@@ -45,7 +42,6 @@ RSpec.describe ANAF::WebServices::VatRegistry do
     end
 
     context 'when response is not JSON' do
-      let(:ids) { [1] }
       let(:html_response) { '<html><head><title>Request Rejected</title></head><body>Request Failed</body></html>' }
 
       before do
@@ -57,6 +53,22 @@ RSpec.describe ANAF::WebServices::VatRegistry do
       it 'raises error with response body' do
         expect { subject }.to raise_error(ANAF::WebServices::InvalidRequest, html_response)
       end
+    end
+
+    context 'when request times out' do
+      before do
+        stub_request(:post, api_endpoint).to_raise(Faraday::TimeoutError)
+      end
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when request connection fails' do
+      before do
+        stub_request(:post, api_endpoint).to_raise(Faraday::ConnectionFailed)
+      end
+
+      it { is_expected.to be_nil }
     end
   end
 
