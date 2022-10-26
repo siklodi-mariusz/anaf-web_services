@@ -16,5 +16,9 @@ module ANAF # :nodoc:
     rescue WebServices::InvalidRequest
       []
     end
+
+    def get_balance_sheet(cui, year)
+      WebServices::BalanceSheet.new(cui, year).call
+    end
   end
 end

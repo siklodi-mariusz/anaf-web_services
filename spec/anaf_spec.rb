@@ -41,4 +41,18 @@ RSpec.describe ANAF do
       it { is_expected.to eq([]) }
     end
   end
+
+  describe '.get_balance_sheet' do
+    let(:company_cui) { 123_456 }
+    let(:year) { 2019 }
+    let(:service) { instance_double('ANAF::WebServices::BalanceSheet', call: service_response) }
+    let(:service_response) { { result: true } }
+
+    subject { described_class.get_balance_sheet(company_cui, year) }
+
+    it 'calls balance sheet service' do
+      expect(ANAF::WebServices::BalanceSheet).to receive(:new).with(company_cui, year).and_return(service)
+      expect(subject).to eq(service_response)
+    end
+  end
 end
