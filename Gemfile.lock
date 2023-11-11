@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    anaf-web_services (0.3.0)
+    anaf-web_services (0.3.1)
       faraday (>= 1.0.0, < 3.0)
 
 GEM
