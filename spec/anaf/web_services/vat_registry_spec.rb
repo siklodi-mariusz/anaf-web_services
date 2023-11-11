@@ -60,7 +60,9 @@ RSpec.describe ANAF::WebServices::VatRegistry do
         stub_request(:post, api_endpoint).to_raise(Faraday::TimeoutError)
       end
 
-      it { is_expected.to be_nil }
+      it 'raises TimeoutError' do
+        expect { subject }.to raise_error(ANAF::WebServices::TimeoutError)
+      end
     end
 
     context 'when request connection fails' do
@@ -68,7 +70,9 @@ RSpec.describe ANAF::WebServices::VatRegistry do
         stub_request(:post, api_endpoint).to_raise(Faraday::ConnectionFailed)
       end
 
-      it { is_expected.to be_nil }
+      it 'raises TimeoutError' do
+        expect { subject }.to raise_error(ANAF::WebServices::TimeoutError)
+      end
     end
   end
 
