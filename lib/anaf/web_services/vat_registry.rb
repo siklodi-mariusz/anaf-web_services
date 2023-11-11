@@ -6,7 +6,7 @@ module ANAF
   module WebServices
     class VatRegistry # :nodoc:
       BASE_URL = 'https://webservicesp.anaf.ro'
-      PATH = '/PlatitorTvaRest/api/v6/ws/tva'
+      PATH = '/PlatitorTvaRest/api/v8/ws/tva'
 
       attr_reader :ids
 
@@ -26,7 +26,7 @@ module ANAF
       rescue JSON::ParserError
         raise InvalidRequest, response.body
       rescue Faraday::TimeoutError, Faraday::ConnectionFailed
-        nil
+        raise TimeoutError
       end
 
       def request_body
